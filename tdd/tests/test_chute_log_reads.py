@@ -264,7 +264,9 @@ def test_should_return_only_lines_before_activated_at(monkeypatch):
 
 
 def test_should_return_not_found_when_launch_config_is_unknown(monkeypatch):
-    monkeypatch.setattr("api.chute_logs.router.decode_launch_jwt", lambda _token: {"sub": "missing"})
+    monkeypatch.setattr(
+        "api.chute_logs.router.decode_launch_jwt", lambda _token: {"sub": "missing"}
+    )
 
     response = _client(catalog=Catalog(), loki=LokiSpy()).get(
         "/logs/miner", headers={"Authorization": "Bearer launch-token"}
